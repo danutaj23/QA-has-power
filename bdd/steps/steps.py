@@ -2,37 +2,28 @@ from behave import *
 import time
 
 
-@given('the page is loaded')
-def step_impl(context):
-    context.browser.get('http://salon.rpgit.pl/')
-    time.sleep(3)
+@given('the page "{url}" is loaded')
+def step_impl(context, url):
+    context.browser.get(url)
+    time.sleep(1)
 
 
-@when('I fill username')
-def step_impl(context):
-    username_input = context.browser.find_element_by_xpath(
-        '//input[@id="id_username"]'
+@when('I type "{text}" in "{input_id}" input')
+def step_impl(context, text, input_id):
+    input_field = context.browser.find_element_by_xpath(
+        '//input[@id="{input_id_xp}"]'.format(input_id_xp=input_id)
     )
-    username_input.send_keys('danuta.klos')
-    time.sleep(3)
+    input_field.send_keys(text)
+    time.sleep(1)
 
 
-@when('I fill password')
-def step_impl(context):
-    password_input = context.browser.find_element_by_xpath(
-        '//input[@id="id_password"]'
-    )
-    password_input.send_keys('Welcome1')
-    time.sleep(3)
-
-
-@when('I click Zaloguj')
-def step_impl(context):
+@when('I click "{button_id}" button')
+def step_impl(context, button_id):
     login_btn = context.browser.find_element_by_xpath(
-        '//button[@id="id_login_btn"]'
+        '//button[@id="{button_id}"]'.format(button_id=button_id)
     )
     login_btn.click()
-    time.sleep(1)
+    time.sleep(3)
 
 
 @then('the home page is displayed')

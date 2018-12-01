@@ -1,9 +1,9 @@
 from selenium import webdriver
 
 
-def before_all(context):
+def before_scenario(context, scenario):
     context.browser = webdriver.Chrome()
 
 
-def after_all(context):
+def after_scenario(context, scenario):
     context.browser.quit()

@@ -1,4 +1,5 @@
 from behave import *
+from selenium.common.exceptions import NoSuchElementException
 import time
 
 
@@ -70,3 +71,26 @@ def step_impl(context, brand, model, year):
         '[td[@class="year"][text()="{year}"]]'
         .format(brand=brand, model=model, year=year)
     )
+
+
+@when('I clear all data')
+def step_impl(context):
+    while True:
+        try:
+            context.browser.find_element_by_xpath(
+                '//a[contains(text(),"Usuń")]'
+            ).click()
+        except NoSuchElementException:
+            break
+
+
+@then('the table is empty')
+def step_impl(context):
+    while True:
+        try:
+            context.browser.find_element_by_xpath(
+                '//a[contains(text(),"Usuń")]')
+        except NoSuchElementException:
+            pass
+        else:
+            raise Exception('Table is not empty.')

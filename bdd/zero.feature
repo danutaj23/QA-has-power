@@ -21,3 +21,7 @@ Feature: Test of car dealer site
       | Audi    | Q3      | 2010 |
       | Hyundai | i40     | 2011 |
       | Hyundai | i30     | 2013 |
+
+    Scenario: clear data
+    When I clear all data
+    Then the table is empty
